@@ -1,3 +1,4 @@
+/* Estilos generales para el cuerpo de la página */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -8,10 +9,12 @@ body {
     align-items: center;
     height: 100vh;
 }
+/* Estilos para los encabezados */
 h1, h2 {
     text-align: center;
     color: #333;
 }
+/* Estilos para el formulario */
 form {
     background: #fff;
     padding: 20px;
@@ -21,12 +24,14 @@ form {
     width: 100%;
     margin-bottom: 20px;
 }
+/* Estilos para las etiquetas */
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
     color: #555;
 }
+/* Estilos para los campos de entrada y el área de texto */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -38,6 +43,7 @@ textarea {
     border-radius: 4px;
     box-sizing: border-box;
 }
+/* Estilos para el botón de envío */
 input[type="submit"] {
     background: #007bff;
     color: #fff;
@@ -51,6 +57,7 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background: #0056b3;
 }
+/* Estilos para las notas */
 .note {
     background: #fff;
     padding: 20px;
@@ -60,6 +67,7 @@ input[type="submit"]:hover {
     width: 100%;
     margin-bottom: 20px;
 }
+/* Estilos para el editor de texto */
 .text-editor {
     background: #fff;
     padding: 20px;

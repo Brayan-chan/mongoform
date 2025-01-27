@@ -4,36 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MongoDB Notes</title>
+    <!-- Enlace a la hoja de estilos -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Enlace a la hoja de estilos de Quill.js -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <h1>Notes Editor</h1>
+    <!-- Formulario para crear una nueva nota -->
     <form id="note-form">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
         <label for="category">Category:</label>
         <input type="text" id="category" name="category" required><br><br>
         <label for="content">Content:</label>
+        <!-- Editor de texto enriquecido -->
         <div id="editor" style="height: 200px;"></div><br><br>
         <input type="submit" value="Save Note">
     </form>
 
     <h2>Notes</h2>
+    <!-- Contenedor para mostrar las notas -->
     <div id="notes"></div>
 
+    <!-- Enlace al script de Quill.js -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
+        // Inicializar Quill.js
         const quill = new Quill('#editor', {
             theme: 'snow'
         });
 
+        // Manejar el envío del formulario
         document.getElementById('note-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const category = document.getElementById('category').value;
             const content = quill.root.innerHTML;
 
+            // Enviar la nueva nota al servidor
             const response = await fetch('/notes', {
                 method: 'POST',
                 headers: {
@@ -44,12 +53,13 @@
 
             if (response.ok) {
                 alert('Nota guardada');
-                fetchNotes();
+                fetchNotes(); // Actualizar la lista de notas
             } else {
                 alert('Error al guardar la nota');
             }
         });
 
+        // Función para obtener y mostrar las notas
         async function fetchNotes() {
             const response = await fetch('/notes');
             const notes = await response.json();
@@ -67,6 +77,7 @@
             });
         }
 
+        // Obtener las notas cuando se carga la página
         document.addEventListener('DOMContentLoaded', fetchNotes);
     </script>
 </body>
