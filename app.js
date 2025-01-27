@@ -17,9 +17,9 @@ app.use(express.urlencoded({ extended: true })); // Agregar esta línea
 app.use(express.static('public'));
 
 app.post('/insert', async (req, res) => {
-    const { name, email, phone } = req.body;
+    const { name, email, phone, matricula } = req.body;
     try {
-        const newUser = new User({ name, email, phone });
+        const newUser = new User({ name, email, phone, matricula });
         await newUser.save();
         res.status(201).send('User inserted');
     } catch (error) {
