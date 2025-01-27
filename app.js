@@ -13,8 +13,8 @@ const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Agregar esta línea
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public')); 
 
 app.post('/insert', async (req, res) => {
     const { name, email, phone, matricula } = req.body;
@@ -23,7 +23,7 @@ app.post('/insert', async (req, res) => {
         await newUser.save();
         res.status(201).send('User inserted');
     } catch (error) {
-        console.error('Error inserting user:', error); // Agregar registro de error detallado
+        console.error('Error inserting user:', error);
         res.status(500).send('Error inserting user');
     }
 });
