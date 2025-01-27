@@ -5,25 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MongoDB Notes</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <h1>Notes Editor</h1>
-
-    <h2>Create Note</h2>
-    <form action="/notes" method="POST">
+    <form id="note-form">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
         <label for="category">Category:</label>
         <input type="text" id="category" name="category" required><br><br>
         <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" required></textarea><br><br>
+        <div id="editor" style="height: 200px;"></div><br><br>
         <input type="submit" value="Save Note">
     </form>
 
     <h2>Notes</h2>
     <div id="notes"></div>
 
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        document.getElementById('note-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const category = document.getElementById('category').value;
+            const content = quill.root.innerHTML;
+
+            const response = await fetch('/notes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, category, content })
+            });
+
+            if (response.ok) {
+                alert('Nota guardada');
+                fetchNotes();
+            } else {
+                alert('Error al guardar la nota');
+            }
+        });
+
         async function fetchNotes() {
             const response = await fetch('/notes');
             const notes = await response.json();
@@ -35,7 +61,7 @@
                 noteElement.innerHTML = `
                     <h3>${note.name}</h3>
                     <p><strong>Category:</strong> ${note.category}</p>
-                    <p>${note.content}</p>
+                    <div>${note.content}</div>
                 `;
                 notesDiv.appendChild(noteElement);
             });
