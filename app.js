@@ -24,20 +24,6 @@ app.use(express.json()); // Middleware para parsear cuerpos de solicitudes JSON
 app.use(express.urlencoded({ extended: true })); // Middleware para parsear cuerpos de solicitudes URL-encoded
 app.use(express.static('public')); // Servir archivos estáticos desde la carpeta 'public'
 
-/*
-app.post('/insert', async (req, res) => {
-    const { name, email, phone, matricula } = req.body;
-    try {
-        const newUser = new User({ name, email, phone, matricula });
-        await newUser.save();
-        res.status(201).send('User inserted');
-    } catch (error) {
-        console.error('Error inserting user:', error);
-        res.status(500).send('Error inserting user');
-    }
-});
-*/
-
 // Ruta para insertar una nueva nota
 app.post('/notes', async (req, res) => {
     const { name, category, content } = req.body; // Extraer datos del cuerpo de la solicitud
